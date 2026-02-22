@@ -132,8 +132,3 @@ dmypy.json
 # OS
 .DS_Store
 Thumbs.db
-
-# Data files
-*.csv
-*.xlsx
-*.xls
