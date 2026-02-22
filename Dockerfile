@@ -21,6 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 COPY api/ ./api/
 COPY frontend/ ./frontend/
+COPY data/ ./data/
 COPY model.joblib .
 
 # Expose the ports for FastAPI (8000) and Streamlit (8501)
