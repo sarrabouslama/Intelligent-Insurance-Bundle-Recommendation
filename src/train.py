@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Adds the parent directory (DataQuest) to the python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pandas as pd
 import numpy as np
 import joblib
@@ -7,7 +13,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
 import os
 import time
-from solution import preprocess, load_model, predict as sol_predict
+from src.solution import preprocess, load_model, predict as sol_predict
 
 # ─── Load Data ───
 raw_train = pd.read_csv('data/train.csv')
@@ -20,13 +26,13 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=
 
 # ─── Smart-Optimized Model ───
 model = LGBMClassifier(
-    n_estimators=250,        # Sweet spot for accuracy vs size
+    n_estimators=250,
     learning_rate=0.07,
     num_leaves=31,           
     min_child_samples=30,    
-    min_gain_to_split=0.02,  # IMPORTANT: Only adds leaves that actually help
-    class_weight='balanced', # Boosts Macro F1 for rare classes
-    colsample_bytree=0.8,    # Randomly selects features to prevent overfitting
+    min_gain_to_split=0.02, 
+    class_weight='balanced',
+    colsample_bytree=0.8,
     random_state=42,
     n_jobs=1,
     verbose=-1
