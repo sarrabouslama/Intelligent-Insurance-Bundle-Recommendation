@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  # Container 1: The Logic
+  backend_api:
+    build: .
+    ports:
+      - "8000:8000"
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+  # Container 2: The UI
+  dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    command: streamlit run frontend/app.py --server.port=8501 --server.address=0.0.0.0
+    depends_on:
+      - backend_api
+    environment:
+      - API_URL=http://backend_api:8000/predict
